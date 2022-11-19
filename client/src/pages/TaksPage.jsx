@@ -12,12 +12,17 @@ function TaksPage() {
 		loadTasks();
 	}, []);
 
+	function renderMain() {
+		if (tasks.length === 0)
+			return <h1 className="text-center text-3xl">Aun no hay tareas</h1>;
+		return tasks.map((task) => <TaskCard task={task} key={task.id} />);
+	}
+
 	return (
 		<div>
 			<h1>Tasks</h1>
-			{tasks.map((task) => (
-				<TaskCard task={task} key={task.id} />
-			))}
+
+			{renderMain()}
 		</div>
 	);
 }
