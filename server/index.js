@@ -5,8 +5,10 @@ import taskroutes from "./routes/tasks.routes.js";
 
 const app = express();
 
-// * Settings
+// * middlewares
+app.use(express.json());
 
+// * routes
 app.use(indexRoutes);
 app.use(taskroutes);
 
