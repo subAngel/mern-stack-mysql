@@ -9,7 +9,7 @@ export const getTask = async (req, res) => {
 		"SELECT * FROM tasks where id=?",
 		req.params.id
 	);
-	if (result.length == 0) {
+	if (result.length === 0) {
 		return res.status(404).json({ message: "Task not found" });
 	}
 	res.json(result[0]);
@@ -29,6 +29,14 @@ export const createTask = async (req, res) => {
 export const updateTask = (req, res) => {
 	res.send("actualizando tarea");
 };
-export const deleteTask = (req, res) => {
-	res.send("elimnando tarea");
+export const deleteTask = async (req, res) => {
+	const [result] = await pool.query("DELETE FROM tasks where id=?", [
+		req.params.id,
+	]);
+
+	if (result.affectedRows === 0) {
+		return res.status(404).json({ message: "Task not found" });
+	}
+
+	return res.sendStatus(204);
 };
